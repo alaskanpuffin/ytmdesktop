@@ -12,7 +12,14 @@ const {
     screen,
     shell,
     dialog,
+    session,
 } = require('electron')
+
+const { ElectronBlocker } = require('@cliqz/adblocker-electron')
+const fetch = require('cross-fetch')
+ElectronBlocker.fromPrebuiltAdsAndTracking(fetch).then((blocker) => {
+    blocker.enableBlockingInSession(session.defaultSession)
+})
 const path = require('path')
 const isDev = require('electron-is-dev')
 const ClipboardWatcher = require('electron-clipboard-watcher')
